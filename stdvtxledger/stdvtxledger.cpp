@@ -41,7 +41,7 @@ class Ledger: public contract {
 		}
 		[[eosio::action]]
 		void rcrdtfr(account_name s, std::string fromaccount,
-				std::string toaccount, float amount, std::string fromkey,
+				std::string toaccount, uint64_t amount, std::string fromkey,
 				std::string tokey, std::string comment, std::string nonce) {
 
 //require_auth(s);

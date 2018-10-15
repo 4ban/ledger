@@ -43,33 +43,33 @@ class Ledger: public contract {
 		}
 		[[eosio::action]]
 		void rcrdtfr(account_name s, std::string fromaccount,
-				std::string toaccount, float amount, std::string fromkey,
+				std::string toaccount, float  amount, std::string fromkey,
 				std::string tokey, std::string comment, std::string nonce) {
-
-		   //require_auth(s);
-			//eosio_assert(amount != 0, "amount needs to be greater than 0");
-
-			bool condition1 = false;
-			bool condition2 = false;
-
-			//All fields missing - No transaction
-			condition1 = !fromaccount.empty() && !toaccount.empty()
-					&& !fromkey.empty() && !tokey.empty();
-			eosio_assert(!condition1, "all_fields_missing");
-			//2 first fields missing - No transaction
-			condition2 = fromaccount.empty() || toaccount.empty();
-			//eosio_assert(!condition2, "missing toaccount or fromaccount or both");
+			print("_____________________________________________________________");
+//		   //require_auth(s);
+//			//eosio_assert(amount != 0, "amount needs to be greater than 0");
+//
+//			bool condition1 = false;
+//			bool condition2 = false;
+//
+//			//All fields missing - No transaction
+//			condition1 = !fromaccount.empty() && !toaccount.empty()
+//					&& !fromkey.empty() && !tokey.empty();
+//			eosio_assert(!condition1, "all_fields_missing");
+//			//2 first fields missing - No transaction
+//			condition2 = fromaccount.empty() || toaccount.empty();
+//			//eosio_assert(!condition2, "missing toaccount or fromaccount or both");
 			int64_t negAmount = -1 * amount;
 			int64_t posAmount = amount;
 			uint64_t tbn = tapos_block_num();
 			uint64_t timestamp = current_time();
 
-
-				print("Account to Wallet");
-				//check for funds
-				//eosio_assert(getbalanceaccount(fromaccount) >= amount,
-				//"insufficient_funds");
-				//decrease with fromaccount
+//
+//				print("Account to Wallet");
+//				//check for funds
+//				//eosio_assert(getbalanceaccount(fromaccount) >= amount,
+//				//"insufficient_funds");
+//				//decrease with fromaccount
 				ledger.emplace(get_self(), [&](auto& p)
 				{
 					p.key = ledger.available_primary_key();

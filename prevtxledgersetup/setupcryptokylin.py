@@ -74,30 +74,23 @@ class Order():
         self.contractAccountName = ""
 
 
-def setOwnerKeys():
-    out = subprocess.check_output(["/usr/local/eosio/bin/cleos", "create", "key", "--to-console"])
-    key = out[13:]
-    key = key[:-67]
-    key2 = out[77:]
-    key2 = key2[:-1]
-    wallet.ownerPrivateKey = key
-    wallet.ownerPublicKey = key2
-    print('Owner keys set')
-    print(wallet.ownerPrivateKey)
+# def setOwnerKeys():
+#     out = subprocess.check_output(["/usr/local/eosio/bin/cleos", "create", "key", "--to-console"])
+#     key = out[13:]
+#     key = key[:-67]
+#     key2 = out[77:]
+#     key2 = key2[:-1]
+#     wallet.ownerPrivateKey = key
+#     wallet.ownerPublicKey = key2
+#     print('Owner keys set')
+#     print(wallet.ownerPrivateKey)
         
-        
-def createEosioWallet():
-    createWallet()
-    setOwnerKeys()
-    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'eosio', '--private-key', '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'])
-    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'eosio', '--private-key', wallet.ownerPrivateKey])
-    print(str(out))        
-
+    
      
-def createStdVtxLedgerWallet():
+def createPreVtxLedgerWallet():
     createWallet()
-    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'prevtxledger', '--private-key', '5J9A3VhpRmkyqm1NmiTJW7MU34c7yVEF8Ep3rbSYR7r8hTHJrxD'])
-    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'prevtxledger', '--private-key', '5KdakA6MZJeawKPECMgpG1Q2dffSt9BNSp5QwGbEKbeva7UaRAT'])
+    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'prevtxledger', '--private-key', '5JZe18WwRETwqrB3GzoWsw3gNoLR5X9qrhrs7y7kVbk6hDs4Vgf'])
+    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'prevtxledger', '--private-key', '5K1H6fitL2LiXioN1VwSFLWKzbguPX8MVRwbzGw5Ayaj3S2JUKh'])
     print(str(out))        
 
 
@@ -155,7 +148,7 @@ if __name__ == '__main__':
     out = subprocess.check_output(['rm', '-rf', os.environ['HOME'] + '/eosio-wallet/prevtxledger.wallet'])
     print(out)
     wallet.name = 'prevtxledger'
-    createStdVtxLedgerWallet()
+    createPreVtxLedgerWallet()
     account.name = 'prevtxledger'
     compileContract()
     setupContract()

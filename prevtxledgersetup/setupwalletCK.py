@@ -20,9 +20,6 @@ os.environ['CLEOS'] = "/usr/local/eosio/bin/cleos"
 
 class BlockChain():
     def __init__(self):
-        #self.producer = "http://ec2-35-182-243-31.ca-central-1.compute.amazonaws.comi:8888"
-        #self.producerWallets = "http://ec2-35-182-243-31.ca-central-1.compute.amazonaws.com:8900"
-        #self.producer = "http://ec2-35-183-119-153.ca-central-1.compute.amazonaws.com:8888"
         self.producer = "http://api.kylin.alohaeos.com"
 class Account():
     def __init__(self):
@@ -77,7 +74,6 @@ def setOwnerKeys():
     key2 = out[77:]
     key2 = key2[:-1]
     wallet.ownerPrivateKey = '55J9A3VhpRmkyqm1NmiTJW7MU34c7yVEF8Ep3rbSYR7r8hTHJrxD'
-    wallet.ownerPublicKey = 'EOS7zbDvgfqEuXmrXFz7dnhEC4w89w2vWq187p5shsne5rzjLs2VE'
     print('Owner keys set')
     print(wallet.ownerPrivateKey)
 
@@ -89,7 +85,6 @@ def setActiveKeys():
     key2 = out[77:]
     key2 = key2[:-1]
     wallet.activePrivateKey = '5KdakA6MZJeawKPECMgpG1Q2dffSt9BNSp5QwGbEKbeva7UaRAT'
-    wallet.activePublicKey = 'EOS8FhYPgnTXoSot5a16CxhcCSmaepvEY93D9WYgb16tB5QxAhDcc'
     print('Active keys set')
     print(wallet.activePrivateKey)
 
