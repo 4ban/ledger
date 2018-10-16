@@ -47,8 +47,8 @@ class Ledger: public contract {
 				std::string tokey, std::string comment, std::string nonce) {
 
 			uint64_t iVal = amount;
-			float fVal = amount - iVal;
-			fVal = fVal * 10;
+			float tempfVal = amount - iVal;
+			uint64_t fVal = tempfVal * 10;
 			print(fVal);
 		   //require_auth(s);
 			//eosio_assert(amount != 0, "amount needs to be greater than 0");
@@ -65,6 +65,13 @@ class Ledger: public contract {
 			//eosio_assert(!condition2, "missing toaccount or fromaccount or both");
 			int64_t negAmount = -1 * amount;
 			int64_t posAmount = amount;
+
+			int64_t negiVal = -1 * amount;
+			int64_t posiVal = amount;
+
+			int64_t negfVal = -1 * fVal;
+			int64_t posfVal = fVal;
+
 			uint64_t tbn = tapos_block_num();
 			uint64_t timestamp = current_time();
 
@@ -83,6 +90,8 @@ class Ledger: public contract {
 					p.sToKey = "";
 					p.fromKey = "";
 					p.amount = negAmount;
+					p.iVal = negiVal;
+					p.fVal = negfVal;
 					p.comment = comment;
 					p.nonce = nonce;
 					p.tbn = tbn;
@@ -98,6 +107,8 @@ class Ledger: public contract {
 					p.sToKey = tokey;
 					p.fromKey = "";
 					p.amount = posAmount;
+					p.iVal = posiVal;
+					p.fVal = posfVal;
 					p.comment = comment;
 					p.nonce = nonce;
 					p.tbn = tbn;
