@@ -156,14 +156,14 @@ if __name__ == '__main__':
     out = subprocess.check_output(['rm', '-rf', os.environ['HOME'] + '/eosio-wallet/eosio.wallet'])
     print(out)
     wallet.name = 'eosio'
-    createEosioWallet()
+    #createEosioWallet()
     out = subprocess.check_output(['rm', '-rf', os.environ['HOME'] + '/eosio-wallet/wrkvtxledger.wallet'])
     print(out)
     wallet.name = 'wrkvtxledger'
     createwrkvtxledgerWallet()
     account.name = 'wrkvtxledger'
     compileContract()
-    createAccount()
+    #createAccount()
     setupContract()
     #object = f'["wrkvtxledger", "godaccount", "vtxdistrib", 364000000, "", "", "test","nonce"]'
     #out = subprocess.check_output([os.environ['CLEOS'],'--url', blockchain.producer, 'push', 'action', account.name, 'rcrdtfr', object, '-p', 'wrkvtxledger' + '@active'])
