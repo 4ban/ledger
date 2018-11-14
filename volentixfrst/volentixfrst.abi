@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Nov  5 11:46:36 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Nov 14 16:13:25 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -31,20 +31,8 @@
                     "type": "string"
                 },
                 {
-                    "name": "fromKey",
-                    "type": "string"
-                },
-                {
                     "name": "amount",
-                    "type": "int64"
-                },
-                {
-                    "name": "iVal",
-                    "type": "int64"
-                },
-                {
-                    "name": "fVal",
-                    "type": "int64"
+                    "type": "float64"
                 },
                 {
                     "name": "comment",
@@ -86,11 +74,7 @@
                 },
                 {
                     "name": "amount",
-                    "type": "float32"
-                },
-                {
-                    "name": "fromkey",
-                    "type": "string"
+                    "type": "float64"
                 },
                 {
                     "name": "tokey",

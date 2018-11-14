@@ -10,25 +10,14 @@ using namespace eosio;
 class Ledger: public contract {
 	public:
 		Ledger(account_name s) :
-				contract(s), ledger(s, s){
-
+				contract(s), ledger(s, s) {
 		}
-		using contract::contract;
-		[[eosio::action]]
+		using contract::contract;[[eosio::action]]
 		void rcrdtfr(account_name s, std::string fromaccount,
-				std::string toaccount, float amount, std::string fromkey,
-				std::string tokey, std::string comment, std::string nonce) {
-			uint64_t iVal = amount;
-			float tempfVal = amount - iVal;
-			uint64_t fVal = tempfVal * 100000000;
-			int64_t negAmount = -1 * amount;
-			int64_t posAmount = amount;
+				std::string toaccount, double amount, std::string tokey, std::string comment, std::string nonce) {
 
-			int64_t negiVal = -1 * amount;
-			int64_t posiVal = amount;
-
-			int64_t negfVal = -1 * fVal;
-			int64_t posfVal = fVal;
+			double negAmount = -1 * amount;
+			double posAmount = amount;
 
 			uint64_t tbn = tapos_block_num();
 			uint64_t tbp = tapos_block_prefix();
@@ -41,10 +30,7 @@ class Ledger: public contract {
 				p.fromAccount = fromaccount;
 				p.toAccount = "";
 				p.sToKey = "";
-				p.fromKey = "";
 				p.amount = negAmount;
-				p.iVal = negiVal;
-				p.fVal = negfVal;
 				p.comment = comment;
 				p.nonce = nonce;
 				p.tbn = tbn;
@@ -59,10 +45,7 @@ class Ledger: public contract {
 				p.fromAccount = "";
 				p.toAccount = toaccount;
 				p.sToKey = tokey;
-				p.fromKey = "";
 				p.amount = posAmount;
-				p.iVal = posiVal;
-				p.fVal = posfVal;
 				p.comment = comment;
 				p.nonce = nonce;
 				p.tbn = tbn;
@@ -81,10 +64,7 @@ class Ledger: public contract {
 				std::string sToKey;
 				std::string fromAccount;
 				std::string toAccount;
-				std::string fromKey;
-				int64_t amount;
-				int64_t iVal;
-				foat fVal;
+				double amount;
 				std::string comment;
 				std::string nonce;
 				int64_t tbn;

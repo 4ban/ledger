@@ -22,8 +22,8 @@ os.environ['CLEOS'] = "/usr/local/eosio/bin/cleos"
 class BlockChain():
 
     def __init__(self):
-        self.producer = "https://api.eosnewyork.io:443"
-        #self.producer = "http://127.0.0.1:8888"
+        #self.producer = "https://api.eosnewyork.io:443"
+        self.producer = "http://api.kylin.alohaeos.com"
 
 
 class Account():
@@ -94,10 +94,10 @@ def createEosioWallet():
     print(str(out))
 
 
-def createvltxtgevtxtrWallet():
+def createvolentixfrstWallet():
     createWallet()
-    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'vltxtgevtxtr', '--private-key', '5K3ssx6BdK3pgWAYzAJuUfxaHQs8zFZKdfiSAuSBdm83Sr6pKKn'])
-    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'vltxtgevtxtr', '--private-key', '5KDqp7FnHmfHmrXmWx1vA9g7Kt9JXuecUNzTyrZHCDSEGjvoaJ6'])
+    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'volentixfrst', '--private-key', '5K3ssx6BdK3pgWAYzAJuUfxaHQs8zFZKdfiSAuSBdm83Sr6pKKn'])
+    out = subprocess.check_output([os.environ['CLEOS'], 'wallet', 'import', '-n', 'volentixfrst', '--private-key', '5KDqp7FnHmfHmrXmWx1vA9g7Kt9JXuecUNzTyrZHCDSEGjvoaJ6'])
     print(str(out))
 
 
@@ -107,8 +107,8 @@ def setContractSteps():
         #cleos --url http://api.kylin.alohaeos.com  set code eostitandocs eostitandocs.wasm
         #cleos --url http://api.kylin.alohaeos.com  set abi eostitandocs eostitandocs.abi
 
-        out = subprocess.check_output([os.environ['CLEOS'], '--url', blockchain.producer, 'set', 'code', account.name,   os.environ['HOME']+'/eclipse-workspace/ledger/vltxtgevtxtr/vltxtgevtxtr.wasm'])
-        out = subprocess.check_output([os.environ['CLEOS'], '--url', blockchain.producer, 'set', 'abi', account.name,  os.environ['HOME']+'/eclipse-workspace/ledger/vltxtgevtxtr/vltxtgevtxtr.abi'])
+        out = subprocess.check_output([os.environ['CLEOS'], '--url', blockchain.producer, 'set', 'code', account.name,   os.environ['HOME']+'/eclipse-workspace/ledger/volentixfrst/volentixfrst.wasm'])
+        out = subprocess.check_output([os.environ['CLEOS'], '--url', blockchain.producer, 'set', 'abi', account.name,  os.environ['HOME']+'/eclipse-workspace/ledger/volentixfrst/volentixfrst.abi'])
     except:
         out = 'Cannot set contract steps'
     print(str(out))
@@ -117,13 +117,13 @@ def setContractSteps():
 
 def setupContract():
     compileContract()
-    order.contract = os.environ['HOME']+'/ledger/vltxtgevtxtr'
+    order.contract = os.environ['HOME']+'/ledger/volentixfrst'
     setContractSteps()
 
 
 def compileContract():
-    out = subprocess.check_output(['/usr/local/eosio.cdt/bin/eosio-cpp', '-o', os.environ['HOME']+'/eclipse-workspace/ledger/vltxtgevtxtr/vltxtgevtxtr.wasm' , os.environ['HOME']+'/eclipse-workspace/ledger/vltxtgevtxtr/vltxtgevtxtr.cpp', '--abigen' ])
-    #out = subprocess.check_output(['/usr/local/eosio.cdt/bin/eosio-cpp', '-o', os.environ['HOME'] + '/eclipse-workspace/ledger/-/vltxtgevtxtr.wast' , os.environ['HOME'] + '/eclipse-workspace/ledger/vltxtgevtxtr/vltxtgevtxtr.cpp' ])
+    out = subprocess.check_output(['/usr/local/eosio.cdt/bin/eosio-cpp', '-o', os.environ['HOME']+'/eclipse-workspace/ledger/volentixfrst/volentixfrst.wasm' , os.environ['HOME']+'/eclipse-workspace/ledger/volentixfrst/volentixfrst.cpp', '--abigen' ])
+    #out = subprocess.check_output(['/usr/local/eosio.cdt/bin/eosio-cpp', '-o', os.environ['HOME'] + '/eclipse-workspace/ledger/-/volentixfrst.wast' , os.environ['HOME'] + '/eclipse-workspace/ledger/volentixfrst/volentixfrst.cpp' ])
     print(str(out))
 
 
@@ -153,13 +153,13 @@ if __name__ == '__main__':
     wallet = Wallet()
     blockchain = BlockChain()
     #killKeosd()
-    #out = subprocess.check_output(['rm', '-rf', os.environ['HOME'] + '/eosio-wallet/vltxtgevtxtr.wallet'])
+    #out = subprocess.check_output(['rm', '-rf', os.environ['HOME'] + '/eosio-wallet/volentixfrst.wallet'])
     #print(out)
-    #wallet.name = 'vltxtgevtxtr'
-    #createvltxtgevtxtrWallet()
-    account.name = 'vltxtgevtxtr'
+    #wallet.name = 'volentixfrst'
+    #createvolentixfrstWallet()
+    account.name = 'volentixldgr'
     compileContract()
     setupContract()
-    #object = f'["vltxtgevtxtr", "godaccount", "vtxdistrib", 364000000, "", "", "test","nonce"]'
-    #out = subprocess.check_output([os.environ['CLEOS'],'--url', blockchain.producer, 'push', 'action', account.name, 'rcrdtfr', object, '-p', 'vltxtgevtxtr' + '@active'])
+    #object = f'["volentixfrst", "godaccount", "vtxdistrib", 364000000, "", "", "test","nonce"]'
+    #out = subprocess.check_output([os.environ['CLEOS'],'--url', blockchain.producer, 'push', 'action', account.name, 'rcrdtfr', object, '-p', 'volentixldgr' + '@active'])
 

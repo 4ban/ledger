@@ -12,4 +12,4 @@ The `{{ rcrdtfr }}` action requires the following `inputs` and `input types`:
 
 | Action | Input | Input Type |
 |:--|:--|:--|
-| `{{ rcrdtfr }}` | `{{ sVar }}`<br/>`{{ fromaccountVar }}`<br/>`{{ toaccountVar }}`<br/>`{{ fromkeyVar }}`<br/>`{{ tokeyVar }}`<br/>`{{ amountVar }}` | `{{ name }}`<br/>`{{ string }}`<br/>`{{ string }}`<br/>`{{ uint64 }}`<br/>`{{ uint64 }}`<br/>`{{ uint32 }}` |
+| `{{ rcrdtfr }}` | `{{ sVar }}`<br/>`{{ fromaccountVar }}`<br/>`{{ toaccountVar }}`<br/>`{{ tokeyVar }}`<br/>`{{ amountVar }}` | `{{ name }}`<br/>`{{ string }}`<br/>`{{ string }}`<br/>`{{ uint64 }}`<br/>`{{ uint64 }}`<br/>`{{ uint32 }}` |

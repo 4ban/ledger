@@ -31,7 +31,7 @@ class BlockChain():
 
     def __init__(self):
         
-        #self.producer = "https://eos.greymass.com:443"
+        #self.producer = "http://api.kylin.alohaeos.com"
         self.producer = "http://mainnet.eoscalgary.io:80"
         #self.producer = "http://127.0.0.1:8888"
 
@@ -83,14 +83,23 @@ if __name__ == '__main__':
     blockchain = BlockChain()
     table = Table()
     table.table = 'entry'
-    table.contract = 'vltxtgevtxtr'
-    account.name = 'vltxtgevtxtr'       
+    table.contract = 'volentixfrst'
+    account.name = 'volentixfrst'       
                                                                                                       
-    object = '["vltxtgevtxtr", "Sue", "Bill", 100.12345678, "", "TEST", "manual", "TGY*T&*T&T&&TY&*T"]'
-    out = subprocess.check_output(['cleos', '--url', blockchain.producer, 'push', 'action', account.name, 'rcrdtfr', object, '-p', 'vltxtgevtxtr' + '@active'])
-    print(out)
+    
+    #object = '["volentixfrst", "vtxdistrib", "vtxtrust", 0.00000001 , "Decimal test", "manual-SC", "13245"]'
+    #out = subprocess.check_output(['cleos', '--url', blockchain.producer, 'push', 'action', account.name, 'rcrdtfr', object, '-p', 'volentixfrst' + '@active'])
+    #object = '["volentixfrst", "vtxdistrib", "vtxtrust", 0.01234567 , "Decimal test", "manual-SC", "12345"]'
+    #out = subprocess.check_output(['cleos', '--url', blockchain.producer, 'push', 'action', account.name, 'rcrdtfr', object, '-p', 'volentixfrst' + '@active'])
+    
+    
+    
+    
+    
+    
+    
     #getTable()
-   #print(out)
+    #print(out)
     #print('************************************************************************************************************************************************************')
     #out = subprocess.check_output([os.environ['CLEOS'], '--url', blockchain.producer, 'get', 'table', account.name, account.name, 'entry', '-l', '10000' ])
     #print(out)
