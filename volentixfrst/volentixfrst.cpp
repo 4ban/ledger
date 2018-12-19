@@ -12,9 +12,14 @@ class Ledger: public contract {
 		Ledger(account_name s) :
 				contract(s), ledger(s, s) {
 		}
-		using contract::contract;[[eosio::action]]
+		using contract::contract;
+		[[eosio::action]] 
 		void rcrdtfr(account_name s, std::string fromaccount,
-				std::string toaccount, double amount, std::string tokey, std::string comment, std::string nonce) {
+											  std::string toaccount, 
+											  double amount, 
+											  std::string tokey, 
+											  std::string comment, 
+											  std::string nonce) {
 
 			double negAmount = -1 * amount;
 			double posAmount = amount;
@@ -25,8 +30,8 @@ class Ledger: public contract {
 
 			ledger.emplace(get_self(), [&](auto& p)
 			{
-				p.key = ledger.available_primary_key();
-				p.Id = ledger.available_primary_key();
+				p.key = ledger.available_primary_key() + 1;
+				p.Id = ledger.available_primary_key() + 1;
 				p.fromAccount = fromaccount;
 				p.toAccount = "";
 				p.sToKey = "";
@@ -40,8 +45,8 @@ class Ledger: public contract {
 			//increase with tokey
 			ledger.emplace(get_self(), [&](auto& p)
 			{
-				p.key = ledger.available_primary_key();
-				p.Id = ledger.available_primary_key();
+				p.key = ledger.available_primary_key() + 1;
+				p.Id = ledger.available_primary_key() + 1;
 				p.fromAccount = "";
 				p.toAccount = toaccount;
 				p.sToKey = tokey;
