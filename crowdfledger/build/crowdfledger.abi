@@ -4,6 +4,16 @@
     "types": [],
     "structs": [
         {
+            "name": "deletetfr",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "rcrdtfr",
             "base": "",
             "fields": [
@@ -70,12 +80,56 @@
                     "type": "uint64"
                 }
             ]
+        },
+        {
+            "name": "updatetfr",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "tokey",
+                    "type": "string"
+                },
+                {
+                    "name": "comment",
+                    "type": "string"
+                },
+                {
+                    "name": "nonce",
+                    "type": "string"
+                }
+            ]
         }
     ],
     "actions": [
         {
+            "name": "deletetfr",
+            "type": "deletetfr",
+            "ricardian_contract": ""
+        },
+        {
             "name": "rcrdtfr",
             "type": "rcrdtfr",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "updatetfr",
+            "type": "updatetfr",
             "ricardian_contract": ""
         }
     ],

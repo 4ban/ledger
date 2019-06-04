@@ -11,20 +11,20 @@
 using std::string;
 using namespace eosio;
 
-class[[eosio::contract]] crowdfledger : public contract {
+class[[eosio::contract]] crowdfledger : public eosio::contract {
     public:
         using contract::contract;
 
         crowdfledger(name receiver, name code, datastream<const char *> ds) : contract(receiver, code, ds) {}
 
         [[eosio::action]]
-        void rcrdtfr(name from,
-                        name to,
-                        asset quantity,
-                        string tokey,
-                        string comment,
-                        string nonce);
+        void rcrdtfr(name from, name to, asset quantity, string tokey, string comment, string nonce);
 
+        [[eosio::action]]
+        void updatetfr(uint64_t id, name from, name to, asset quantity, string tokey, string comment, string nonce);
+
+        [[eosio::action]]
+        void deletetfr(uint64_t id);
 
     private:
         struct [[eosio::table]] transactions {
