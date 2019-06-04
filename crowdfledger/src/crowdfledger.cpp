@@ -21,14 +21,16 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
     });
 }
 
-void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, string tokey, string comment, string nonce)
-{
+void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, string tokey, string comment, string nonce) {
     eosio_assert(id > 0, "ID should be positive");
 }
 
-void crowdfledger::deletetfr(uint64_t id)
-{
+void crowdfledger::deletetfr(uint64_t id) {
     eosio_assert(id > 0, "ID should be positive");
+    transactions_index transactions(_self, _self.value);
+    auto todelete = transactions.find(id);
+    eosio_assert(todelete != transactions.end(), "ID does not exist");
+    transactions.erase(todelete);
 }
 
 EOSIO_DISPATCH(crowdfledger, (rcrdtfr)(updatetfr)(deletetfr))
