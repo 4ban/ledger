@@ -23,6 +23,23 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
 
 void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, string tokey, string comment, string nonce) {
     eosio_assert(id > 0, "ID should be positive");
+    check(quantity.is_valid(), "Invalid quantity");
+    check(quantity.amount > 0, "Must transfer positive amount");
+    eosio_assert(from == to, "From and To fields should be different.");
+
+    transactions_index transactions(_self, _self.value);
+    uint64_t timestamp = current_time();
+    auto toupdate = transactions.find(id);
+
+    transactions.modify(toupdate, _self, [&](auto &row) {
+        row.from = from;
+        row.to = to;
+        row.quantity = quantity;
+        row.tokey = tokey;
+        row.comment = comment;
+        row.nonce = nonce;
+        row.timestamp = timestamp;
+    });
 }
 
 void crowdfledger::deletetfr(uint64_t id) {
