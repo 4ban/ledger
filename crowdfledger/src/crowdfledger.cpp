@@ -5,7 +5,7 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
     // Parameters validation
     check(quantity.is_valid(), "Invalid quantity");
     check(quantity.amount > 0, "Must transfer positive amount");
-    eosio_assert(from == to, "From and To fields should be different.");
+    check(from == to, "From and To fields should be different.");
 
     transactions_index transactions(_self, _self.value);
     uint64_t timestamp = current_time();
@@ -22,10 +22,10 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
 }
 
 void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, string tokey, string comment, string nonce) {
-    eosio_assert(id > 0, "ID should be positive");
+    check(id > 0, "ID should be positive");
     check(quantity.is_valid(), "Invalid quantity");
     check(quantity.amount > 0, "Must transfer positive amount");
-    eosio_assert(from == to, "From and To fields should be different.");
+    check(from == to, "From and To fields should be different.");
 
     transactions_index transactions(_self, _self.value);
     uint64_t timestamp = current_time();
@@ -43,10 +43,10 @@ void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, st
 }
 
 void crowdfledger::deletetfr(uint64_t id) {
-    eosio_assert(id > 0, "ID should be positive");
+    check(id > 0, "ID should be positive");
     transactions_index transactions(_self, _self.value);
     auto todelete = transactions.find(id);
-    eosio_assert(todelete != transactions.end(), "ID does not exist");
+    check(todelete != transactions.end(), "ID does not exist");
     transactions.erase(todelete);
 }
 
