@@ -3,9 +3,13 @@
 
 void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, string comment, string nonce) {
     // Parameters validation
+    check(from != to, "From and To fields should be different.");
+    auto sym = quantity.symbol;
+    check(sym.is_valid(), "Invalid symbol name");
     check(quantity.is_valid(), "Invalid quantity");
     check(quantity.amount > 0, "Must transfer positive amount");
-    check(from == to, "From and To fields should be different.");
+    check(!tokey.empty(), "You can not send to empty wallet");
+    check(comment.size() <= 256, "Memo has more than 256 bytes");
 
     transactions_index transactions(_self, _self.value);
     uint64_t timestamp = current_time();
@@ -23,9 +27,13 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
 
 void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, string tokey, string comment, string nonce) {
     check(id > 0, "ID should be positive");
+    check(from != to, "From and To fields should be different.");
+    auto sym = quantity.symbol;
+    check(sym.is_valid(), "Invalid symbol name");
     check(quantity.is_valid(), "Invalid quantity");
     check(quantity.amount > 0, "Must transfer positive amount");
-    check(from == to, "From and To fields should be different.");
+    check(!tokey.empty(), "You can not send to empty wallet");
+    check(comment.size() <= 256, "Memo has more than 256 bytes");
 
     transactions_index transactions(_self, _self.value);
     uint64_t timestamp = current_time();
@@ -44,6 +52,7 @@ void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, st
 
 void crowdfledger::deletetfr(uint64_t id) {
     check(id > 0, "ID should be positive");
+
     transactions_index transactions(_self, _self.value);
     auto todelete = transactions.find(id);
     check(todelete != transactions.end(), "ID does not exist");
