@@ -11,6 +11,8 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
     check(!tokey.empty(), "You can not send to empty wallet");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
+    deduction(from, to, quantity);
+
     transactions_index transactions(_self, _self.value);
     uint64_t timestamp = current_time();
     transactions.emplace(_self, [&](auto &row) {
@@ -57,6 +59,21 @@ void crowdfledger::deletetfr(uint64_t id) {
     auto todelete = transactions.find(id);
     check(todelete != transactions.end(), "ID does not exist");
     transactions.erase(todelete);
+}
+
+void crowdfledger::deduction(name from, name to, asset quantity) {
+    // Parameters validation
+    check(from != to, "From and To fields should be different.");
+    auto sym = quantity.symbol;
+    check(sym.is_valid(), "Invalid symbol name");
+    check(quantity.is_valid(), "Invalid quantity");
+    check(quantity.amount > 0, "Must transfer positive amount");
+
+    require_auth(from);
+
+    std::vector<permission_level> p;
+    p.push_back(permission_level{from, "active"_n});
+    action(p, "volentixgsys"_n, "transfer"_n, std::make_tuple(from, to, quantity, std::string("Deduction test"))).send();
 }
 
 EOSIO_DISPATCH(crowdfledger, (rcrdtfr)(updatetfr)(deletetfr))
