@@ -11,6 +11,7 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
     check(!tokey.empty(), "You can not send to empty wallet");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
+    require_auth(get_self());
     deduction(from, to, quantity);
 
     transactions_index transactions(_self, _self.value);
@@ -46,7 +47,7 @@ void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, st
         row.to = to;
         row.quantity = quantity;
         row.tokey = tokey;
-        row.comment = comment;
+        row.comment = "UPDATED: "+comment;
         row.nonce = nonce;
         row.timestamp = timestamp;
     });
@@ -68,8 +69,6 @@ void crowdfledger::deduction(name from, name to, asset quantity) {
     check(sym.is_valid(), "Invalid symbol name");
     check(quantity.is_valid(), "Invalid quantity");
     check(quantity.amount > 0, "Must transfer positive amount");
-
-    require_auth(from);
 
     std::vector<permission_level> p;
     p.push_back(permission_level{from, "active"_n});
