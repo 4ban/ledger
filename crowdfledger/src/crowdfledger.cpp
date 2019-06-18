@@ -11,7 +11,7 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
     check(!tokey.empty(), "You can not send to empty wallet");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
-    require_auth(get_self());
+    // require_auth(get_self());
     deduction(from, to, quantity);
 
     transactions_index transactions(_self, _self.value);
