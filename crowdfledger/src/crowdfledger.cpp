@@ -11,7 +11,7 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
     check(!tokey.empty(), "You can not send to empty wallet");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
-    // require_auth(get_self());
+    require_auth(get_self());
     deduction(from, to, quantity);
 
     transactions_index transactions(_self, _self.value);
@@ -38,6 +38,7 @@ void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, st
     check(!tokey.empty(), "You can not send to empty wallet");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
+    require_auth(get_self());
     transactions_index transactions(_self, _self.value);
     uint64_t timestamp = current_time();
     auto toupdate = transactions.find(id);
@@ -56,6 +57,7 @@ void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, st
 void crowdfledger::deletetfr(uint64_t id) {
     check(id >= 0, "ID should be positive");
 
+    require_auth(get_self());
     transactions_index transactions(_self, _self.value);
     auto todelete = transactions.find(id);
     check(todelete != transactions.end(), "ID does not exist");
@@ -71,7 +73,7 @@ void crowdfledger::deduction(name from, name to, asset quantity) {
     check(quantity.amount > 0, "Must transfer positive amount");
 
     std::vector<permission_level> p;
-    p.push_back(permission_level{from, "active"_n});
+    p.push_back(permission_level{get_self(), "active"_n});
     action(p, "volentixgsys"_n, "transfer"_n, std::make_tuple(from, to, quantity, std::string("Deduction test"))).send();
 }
 
