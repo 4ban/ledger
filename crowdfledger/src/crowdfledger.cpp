@@ -9,6 +9,7 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
     check(quantity.is_valid(), "Invalid quantity");
     check(quantity.amount > 0, "Must transfer positive amount");
     check(!tokey.empty(), "You can not send to empty wallet");
+    check(tokey.length() > 50, "Your public key is not valid");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
     require_auth(get_self());
@@ -36,6 +37,7 @@ void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, st
     check(quantity.is_valid(), "Invalid quantity");
     check(quantity.amount > 0, "Must transfer positive amount");
     check(!tokey.empty(), "You can not send to empty wallet");
+    check(tokey.length() > 50, "Your public key is not valid");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
     require_auth(get_self());
@@ -74,7 +76,7 @@ void crowdfledger::deduction(name from, name to, asset quantity) {
 
     std::vector<permission_level> p;
     p.push_back(permission_level{get_self(), "active"_n});
-    action(p, "volentixgsys"_n, "transfer"_n, std::make_tuple(from, to, quantity, std::string("Deduction test"))).send();
+    action(p, "volentixgsys"_n, "transfer"_n, std::make_tuple(from, to, quantity, std::string("Deduction of VTX tokens"))).send();
 }
 
 EOSIO_DISPATCH(crowdfledger, (rcrdtfr)(updatetfr)(deletetfr))
