@@ -26,10 +26,6 @@
                     "type": "name"
                 },
                 {
-                    "name": "user_account",
-                    "type": "name"
-                },
-                {
                     "name": "quantity",
                     "type": "asset"
                 },
@@ -61,10 +57,6 @@
                 },
                 {
                     "name": "to",
-                    "type": "name"
-                },
-                {
-                    "name": "user_account",
                     "type": "name"
                 },
                 {
@@ -103,10 +95,6 @@
                 },
                 {
                     "name": "to",
-                    "type": "name"
-                },
-                {
-                    "name": "user_account",
                     "type": "name"
                 },
                 {
