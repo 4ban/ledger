@@ -18,10 +18,10 @@ class[[eosio::contract]] crowdfledger : public eosio::contract {
         crowdfledger(name receiver, name code, datastream<const char *> ds) : contract(receiver, code, ds) {}
 
         [[eosio::action]]
-        void rcrdtfr(name from, name to, asset quantity, string tokey, string comment, string nonce);
+        void rcrdtfr(name from, name to, name user_account, asset quantity, string tokey, string comment, string nonce);
 
         [[eosio::action]]
-        void updatetfr(uint64_t id, name from, name to, asset quantity, string tokey, string comment, string nonce);
+        void updatetfr(uint64_t id, name from, name to, name user_account, asset quantity, string tokey, string comment, string nonce);
 
         [[eosio::action]]
         void deletetfr(uint64_t id);
@@ -33,6 +33,7 @@ class[[eosio::contract]] crowdfledger : public eosio::contract {
             uint64_t id = 0;
             name from;
             name to;
+            name user_account;
             asset quantity;
             string tokey;
             string comment;
