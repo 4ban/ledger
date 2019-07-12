@@ -10,6 +10,7 @@ void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, str
     check(quantity.amount > 0, "Must transfer positive amount");
     check(!tokey.empty(), "You can not send to empty wallet");
     check(tokey.length() > 50, "Your public key is not valid");
+    check(tokey.find("EOS") != string::npos, "It looks like you entered a non-public key");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
     require_auth(get_self());
@@ -39,6 +40,7 @@ void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, st
     check(quantity.amount > 0, "Must transfer positive amount");
     check(!tokey.empty(), "You can not send to empty wallet");
     check(tokey.length() > 50, "Your public key is not valid");
+    check(tokey.find("EOS") != string::npos, "It looks like you entered a non-public key");
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
     require_auth(get_self());
