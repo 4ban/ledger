@@ -1,10 +1,9 @@
 #include "crowdfledger.hpp"
 
-void crowdfledger::rcrdtfr(name from, name to, name user_account, asset quantity, string tokey, string comment, string nonce)
+void crowdfledger::rcrdtfr(name from, name to, asset quantity, string tokey, string comment, string nonce)
 {
     // Parameters validation
     check(from != to, "From and To fields should be different.");
-    check(from != user_account, "From and User account fields should be different.");
     auto sym = quantity.symbol;
     check(sym.is_valid(), "Invalid symbol name");
     check(quantity.is_valid(), "Invalid quantity");
@@ -14,50 +13,26 @@ void crowdfledger::rcrdtfr(name from, name to, name user_account, asset quantity
     check(comment.size() <= 256, "Memo has more than 256 bytes");
 
     require_auth(get_self());
+    deduction(from, to, quantity);
 
-    string account = user_account.to_string();
-    if (account.empty()) {
-        deduction(from, to, quantity);
-
-        transactions_index transactions(_self, _self.value);
-        uint64_t timestamp = current_time();
-        transactions.emplace(_self, [&](auto &row) {
-            row.id = transactions.available_primary_key();
-            row.from = from;
-            row.to = to;
-            row.user_account = user_account;
-            row.quantity = quantity;
-            row.tokey = tokey;
-            row.comment = comment;
-            row.nonce = nonce;
-            row.timestamp = timestamp;
-        });
-    }
-    else {
-        deduction(from, user_account, quantity);
-
-        transactions_index transactions(_self, _self.value);
-        uint64_t timestamp = current_time();
-        transactions.emplace(_self, [&](auto &row) {
-            row.id = transactions.available_primary_key();
-            row.from = from;
-            row.to = user_account;
-            row.user_account = user_account;
-            row.quantity = quantity;
-            row.tokey = tokey;
-            row.comment = comment;
-            row.nonce = nonce;
-            row.timestamp = timestamp;
-        });
-    }
-
+    transactions_index transactions(_self, _self.value);
+    uint64_t timestamp = current_time();
+    transactions.emplace(_self, [&](auto &row) {
+        row.id = transactions.available_primary_key();
+        row.from = from;
+        row.to = to;
+        row.quantity = quantity;
+        row.tokey = tokey;
+        row.comment = comment;
+        row.nonce = nonce;
+        row.timestamp = timestamp;
+    });
 }
 
-void crowdfledger::updatetfr(uint64_t id, name from, name to, name user_account, asset quantity, string tokey, string comment, string nonce)
+void crowdfledger::updatetfr(uint64_t id, name from, name to, asset quantity, string tokey, string comment, string nonce)
 {
     check(id >= 0, "ID should be positive");
     check(from != to, "From and To fields should be different.");
-    check(from != user_account, "From and User account fields should be different.");
     auto sym = quantity.symbol;
     check(sym.is_valid(), "Invalid symbol name");
     check(quantity.is_valid(), "Invalid quantity");
@@ -74,7 +49,6 @@ void crowdfledger::updatetfr(uint64_t id, name from, name to, name user_account,
     transactions.modify(toupdate, _self, [&](auto &row) {
         row.from = from;
         row.to = to;
-        row.user_account = user_account;
         row.quantity = quantity;
         row.tokey = tokey;
         row.comment = "UPDATED: "+comment;
