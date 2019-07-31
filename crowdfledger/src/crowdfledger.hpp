@@ -5,7 +5,7 @@
 #include <eosiolib/symbol.hpp>
 #include <eosiolib/contract.hpp>
 #include <eosiolib/name.hpp>
-
+#include <vector>
 #include <string>
 
 using std::string;
@@ -27,6 +27,8 @@ class[[eosio::contract]] crowdfledger : public eosio::contract {
         void deletetfr(uint64_t id);
 
     private:
+        void deduction(name from, name to, asset quantity);
+
         struct [[eosio::table]] transactions {
             uint64_t id = 0;
             name from;
